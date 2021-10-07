@@ -1,17 +1,15 @@
 ! This is the main program.
 program MAIN
-    ! let's try to call a function.
     implicit none
     character (len = 31) :: shifted, normal
-    shifted = encrypt("This is a test string from Alan", 8)  ! We have to declare the return type of the function.
+    shifted = encrypt("This is a test string from Alan", 8) 
     print*, shifted
     normal = decrypt(shifted, 8)
     print*, normal
     
     call solve("HAL", 26)
 
-contains ! I'll explain why I did this in my write up but I hate myself for doing this 
-
+contains 
     
     function encrypt(text, shift) result(cipher)
         implicit none
@@ -22,8 +20,8 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
         character (len = len(text)) :: cipher, msg
 
         msg = to_upper(text)
-        cipher = "" ! I need this or else the output is trashed for some reason
-        f = 0 !This is the space flag and will be turned to 1 if a space has occurred (this will not work for sentences with more than once space in a row)
+        cipher = ""
+        f = 0
         do i = 1, len(msg)
             c = iachar(msg(i:i))
             if(c /= iachar(" ")) then
@@ -32,7 +30,7 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
                     c = c - 26
                 end if
             end if
-            if(c == iachar(" ")) then ! the reason i need this is becuase i need to trim the variable and i cant have a space at the end without it being trimmed off
+            if(c == iachar(" ")) then
                 f = 1
             else if (f == 1) then  
                 cipher = trim(cipher)//" "//char(c)
@@ -53,8 +51,8 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
         character (len = len(text)) :: cipher, msg
 
         msg = to_upper(text)
-        cipher = "" ! I need this or else the output is trashed for some reason
-        f = 0 !This is the space flag and will be turned to 1 if a space has occurred (this will not work for sentences with more than once space in a row)
+        cipher = "" 
+        f = 0 
         do i = 1, len(msg)
             c = iachar(msg(i:i))
             if(c /= iachar(" ")) then
@@ -63,7 +61,7 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
                     c = c + 26
                 end if
             end if
-            if(c == iachar(" ")) then ! the reason i need this is becuase i need to trim the variable and i cant have a space at the end without it being trimmed off
+            if(c == iachar(" ")) then 
                 f = 1
             else if (f == 1) then  
                 cipher = trim(cipher)//" "//char(c)
@@ -84,8 +82,8 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
         character (len = len(text)) :: cipher, msg
 
         msg = to_upper(text)
-        cipher = "" ! I need this or else the output is trashed for some reason
-        f = 0 !This is the space flag and will be turned to 1 if a space has occured (this will not work for sentances with more than once space 
+        cipher = "" 
+        f = 0  
         do n = 0, maxVal
             cipher = "" 
             do i = 1, len(msg)
@@ -96,7 +94,7 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
                         c = c - 26
                     end if
                 end if
-                if(c == iachar(" ")) then ! the reason i need this is becuase i need to trim the variable and i cant have a space at the end without it being trimmed off
+                if(c == iachar(" ")) then
                     f = 1
                 else if (f == 1) then  
                     cipher = trim(cipher)//" "//char(c)
@@ -113,6 +111,7 @@ contains ! I'll explain why I did this in my write up but I hate myself for doin
     function to_upper(strIn) result(strOut)
     ! code from:https://stackoverflow.com/questions/10759375/how-can-i-write-a-to-upper-or-to-lower-function-in-f90
     ! Original author: jvriesem
+    ! Did not want to implement the to upper myself
 
          implicit none
 
